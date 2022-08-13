@@ -1,200 +1,75 @@
-# Server
+# SoftUni Practice Server
 
-## 🛠 Libraries and tools used
+| Contents
+|---
+| [Usage](#usage)
+| [Services](#services)
+| - [JSON Store](#json-store)
+| - [Authentication](#authentication)
+| - [Collections](#collections)
 
-- [Express](https://expressjs.com/)
-- [Mongoose](https://mongoosejs.com/)
-- [Cors](https://github.com/expressjs/cors)
-- [Dotenv](https://github.com/motdotla/dotenv)
-- [Nodemon](https://github.com/remy/nodemon)
+## Usage
 
-## Getting Started
+This is **REST service**, created for educational purposes. A compiled bundle should be available with every exercise's resources. To execute it, run the included **start.bat** file, or manually open a command prompt and run `node server.js`.
 
-Clone this repository and install dependencies
+**Note:** You **do NOT need** to download anything from this repository - this is intended for reference only.
 
+## Services
+
+Note that changes to the data **will not be persisted**! All operations happen in memory and will be wiped when the service is restarted.
+
+### JSON Store
+
+| [Read the detailed documentation for this service](./JSONSTORE.md)
+|---
+
+#### Configuration
+*This service does NOT use authentication - everything is fully accessible without any credentials.*
+
+This service dynamically loads collections from the `./data/` folder, located with the server. Any JSON file in this folder will be accessible via requests.
+
+#### CRUD Operations
+
+All requests are sent to `/jsonstore/:resource`. Resources can be nested and have any shape. Individual properties can be accessed by appending `/:propName` to the endpoint as deep as you require. Supported requests are `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
+
+### Authentication
+
+The service is initialized with three users, which can be used for immediate testing:
+* peter@abv.bg : 123456
+* george@abv.bg : 123456
+* admin@abv.bg : admin
+
+#### Register
+Create a new user by sending a `POST` request to `/users/register` with properties `email` and `password`. You can add any other property that you need, like username, avatar, etc. The service automatically creates a session and returns an authorization token, that can be used for requests.
+
+#### Login
+Login by sending a `POST` request with `email` and `password` to `/users/login`. The service will respond with an object, containing a standard string token, that can be used for requests.
+
+#### Logout
+Send an authorized `GET` request to `/users/logout`. **The service returns an empty response - if you attempt to parse it as JSON, you will receive an error!** You can check for this type of response by looking at the **status** (204 instead of 200) and the **content-type header** (will not be present).
+
+#### Get User Details
+Send an authorized `GET` request to `/users/me`. The service will return the record of the user, associated with the passed-in session token.
+
+#### Authorized Requests
+To make an authorized request, add the following header, where `{token}` is the access token, returned by the service upon successful login or registration:
 ```
-> git clone https://github.com/MihailValkov/user-list-demo.git
-> cd server
-> npm install
-```
-
-### Create '.env' file in the main directory and populate the following information:
-
-- `DB_NAME` -- Mongo Database name;
-- `DB_CONNECTION` -- Mongo Database connection string;
-
-### Example
-
-```
-DB_NAME=user-list
-DB_CONNECTION=mongodb://localhost:27017
-```
-
-To start the server, you must run the following command in your terminal:
-
-```
-> npm run dev
-```
-
-## Base URL
-
-The Base URL for the API is: `http://localhost:3005/api`
-
-The documentation below assumes you are pre-pending the Base URL to the endpoints in order to make requests.
-
-# Endpoints: Users
-
-- `/users` -- create new user / get all users;
-- `/users/{userId}` -- get / update / delete user by provided id;
-
-## Create a new user
-
-Create a new user by sending a `POST` request to `/users` with properties `firstName`, `lastName`, `email`, `imageUrl`, `phoneNumber` and `address`. The service will respond with an object, containing newly created user.
-
-### Body
-
-```
-{
-  firstName: string;
-  lastName: string;
-  email: string;
-  imageUrl: string;
-  phoneNumber: string;
-  address: {
-    country: string,
-    city: string;
-    street: string;
-    streetNumber: number;
-  }
-}
+X-Authorization: {token}
 ```
 
-### Success Response:
+#### Admin Override
+Any request which includes the `X-Admin` header will be **granted full access** to any resource inside the **Collections** service. The only exception is if the request has an invalid session token, which still throws a 403 with the appropriate message.
 
-Code: 201 Created
+### Collections
 
-Content:
+| [Read the detailed documentation for this service](./COLLECTIONS.md)
+|---
 
-```
-{
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    imageUrl: string;
-    phoneNumber: string;
-    createdAt: string;
-    updatedAt: string;
-  }
-}
-```
+This service uses authentication - reading resources is public, but creating, updating and deleting can only be performed by authorized users. Additionally, only the original creator of a resource can edit or delete it.
 
-## Get all users
+#### CRUD Operations
 
-Send a `GET` request to `/users`. The service will respond with an object containing properties `users` (an array of user objects) and `count` (number of all records). This endpoint can accept query params like: `page`, `limit`, `sort`, `order`, `search` and `criteria`.
-
-Send a `GET` request to `/users?page=1&limit=5&search=Chris&criteria=firstName&sort=createdAt&order=desc`. The service will respond with an object, containing properties `users` (an array with a maximum of 5 records, sorted in descending order by createdAt - date of creation and filtered by firstName, which includes the searched string `"Chris"`) and `count` (number of all records that match this criterion).
-
-## Get user by userId
-
-Send a `GET` request to `/users/{userId}`. The service will respond with an user object.
-
-### Success Response:
-
-Code: 200 OK
-
-Content:
-
-```
-{
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    imageUrl: string;
-    phoneNumber: string;
-    address: {
-    country: string,
-    city: string;
-    street: string;
-    streetNumber: number;
-    }
-    createdAt: string;
-    updatedAt: string;
-  }
-}
-```
-
-## Update user by userId
-
-Update an existing user by sending a `PUT` request to `/users/{userId}` with properties `firstName`, `lastName`, `email`, `imageUrl`, `phoneNumber` and `address`. The service will respond with an object, containing newly updated user.
-
-### Body
-
-```
-{
-  firstName: string;
-  lastName: string;
-  email: string;
-  imageUrl: string;
-  phoneNumber: string;
-  address: {
-    country: string,
-    city: string;
-    street: string;
-    streetNumber: number;
-  }
-}
-```
-
-### Success Response:
-
-Code: 200 OK
-
-Content:
-
-```
-{
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    imageUrl: string;
-    phoneNumber: string;
-    createdAt: string;
-    updatedAt: string;
-  }
-}
-```
-
-## Delete user by userId
-
-Delete an existing user by sending a `DELETE` request to `/users/{userId}`. The service will respond with an object, containing userId of the deleted user.
-
-### Success Response:
-
-Code: 200 OK
-
-Content:
-
-```
-{
-  userId: string;
-}
-```
-
-**In case of a validation error, the service will respond with an error status code and an object containing the error message**.
-
-### Error Response:
-
-```
-{
-  message: string;
-}
-```
+Send requests to `/data/:collection` with appropriate method and headers. All operations, except for Read, require an authorization header to be present on the request (see the [Authentication](Authentication) section on how to obtain a valid token).
 
 ## Further Information
-You may create issues, regarding missing, incorrect or incomplete information. Any contribution is welcome!
+You may create issues, regarding missing, incorrect or incomplete information, regarding the use of this service. Any contribution is welcome!

@@ -1,0 +1,132 @@
+{
+    "identity": "username",
+    "protectedData": {
+        "users": {
+            "35c62d76-8152-4626-8712-eeb96381bea8": {
+                "username": "Admin",
+                "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
+                "firstName":"Admin",
+                "lastName":"Ivanov"
+            },
+            "847ec027-f659-4086-8032-5173e2f9c93a": {
+                "username": "John",
+                "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
+                "firstName":"John",
+                "lastName":"Ivanov"
+            }
+        },
+        "sessions": {}
+    },
+    "seedData": {
+        "bikes": {
+            "3a432947-3e43-42a8-bcbc-100d2b199890": {
+                "title": "Drag Shift",
+                "description": "Hardtail Bike made by bulgarian manufacturer Drag.",
+                "image": "Drag-Shift.jpg",
+                "discount": 0,
+                "price": 1390.00,
+                "status": "in-stock"
+                ,
+                "features": [
+                    "Front suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199891": {
+                "title": "Drag Ronin",
+                "description": "Full Suspension Bike made by bulgarian manufacturer Drag.",
+                "image": "Drag-Ronin.jpg",
+                "discount": 0,
+                "price": 3390.00,
+                "status": "in-stock"
+                ,
+                "features": [
+                    "Front suspension",
+                    "Rear suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199892": {
+                "title": "Canyon Torque",
+                "description": "Full Suspension Bike made by Canyon.",
+                "image": "Canyon-Torque.jpg",
+                "discount": 0,
+                "price": 7390.99,
+                "status": "in-stock",
+                "features": [
+                    "Front suspension",
+                    "Rear suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199896": {
+                "title": "Drag Freeride",
+                "description": "Hardtail Bike made by bulgarian manufacturer Drag.",
+                "image": "Drag-Shift.jpg",
+                "discount": 0,
+                "price": 1390.00,
+                "status": "delivery",
+                "features": [
+                    "Front suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199897": {
+                "title": "Drag Climber",
+                "description": "Full Suspension Bike made by bulgarian manufacturer Drag.",
+                "image": "Drag-Ronin.jpg",
+                "discount": 0,
+                "price": 3390.00,
+                "status": "delivery",
+                "features": [
+                    "Front suspension",
+                    "Rear suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199898": {
+                "title": "Canyon Hardtail",
+                "description": "Full Suspension Bike made by Canyon.",
+                "image": "Canyon-Torque.jpg",
+                "discount": 0,
+                "price": 7390.99,
+                "status": "delivery",
+                "features": [
+                    "Front suspension",
+                    "Rear suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            },
+             "3a432947-3e43-42a8-bcbc-100d2b199899": {
+                "title": "Canyon new",
+                "description": "Full Suspension Bike made by Canyon.",
+                "image": "Canyon-Torque.jpg",
+                "discount": 0,
+                "price": 7390.99,
+                "status": "delivery",
+                "features": [
+                    "Front suspension",
+                    "Rear suspension",
+                    "Continental tyres",
+                    "Hydraulic brakes"
+                ]
+            }
+        }
+    },
+    "rules": {
+        "users": {
+            ".create": false,
+            ".read": [
+                "Owner"
+            ],
+            ".update": false,
+            ".delete": false
+        }
+    }
+}

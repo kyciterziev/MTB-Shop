@@ -1,30 +1,23 @@
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
+const http = require('http');
+const createHandler = require('./src/requestHandler');
+const services = require('./src/services');
+const createStorage = require('./src/plugins/storage');
+const createAuth = require('./src/plugins/auth');
+const createUtil = require('./src/plugins/util');
+const createRules = require('./src/plugins/rules');
 
-const db = require('./config/db');
-const { port, dbConnection } = require('./config/config');
+const settings = require('./settings.json');
 
-const allowed = ['.js', '.css', '.png', '.jpg', '.jpeg', '.ico'];
+const plugins = [
+    createStorage(settings),
+    createAuth(settings),
+    createUtil(settings),
+    createRules(settings)
+];
 
-const app = express();
-const start = async () => {
-  try {
-    await db(dbConnection);
-    require('./config/express')(app, express);
-    require('./routes/router')(app);
+const server = http.createServer(createHandler(plugins, services));
 
-    app.get('*', (req, res) => {
-      if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-        res.sendFile(path.resolve(`public/${req.url}`));
-      } else {
-        res.sendFile(path.join(__dirname, 'public/index.html'));
-      }
-    });
-    console.log('*** >>> Database is connected <<< ***');
-    app.listen(port, () => console.log(`Server is listening on port: ${port}`));
-  } catch (error) {
-    console.error('!!! >>> Database is not connected <<< !!!\nError:', error.message);
-  }
-};
-start();
+const port = 3030;
+server.listen(port);
+console.log(`Server started on port ${port}. You can make requests to http://localhost:${port}/`);
+console.log(`Admin panel located at http://localhost:${port}/admin`);

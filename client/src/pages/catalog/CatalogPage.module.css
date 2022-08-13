@@ -1,0 +1,20 @@
+.catalog {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+.catalogCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+.catalogContainerRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 2rem;
+    margin-bottom: 50px;
+}
+.catalogContainerRowTitle {
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 40px;
+}
