@@ -19,8 +19,8 @@ const CatalogPage = () => {
     const navigate = useNavigate();
 
     const [query, setQuery] = useState({
-        query: searchParams.get('query') ? searchParams.get('query') : "",
-        offset: searchParams.get('offset') ? searchParams.get('offset') : 0,
+        query: searchParams.get('query') || "",
+        offset: searchParams.get('offset') || 0,
         pageSize: pageSize,
     });
 

@@ -22,7 +22,7 @@ const BikeCardItem = ({ bike }) => {
 
             <div className={styles.cta}>
                 <div className={styles.price}>{bike.price}$</div>
-                <button className={styles.btn}>View<span></span></button>
+                <Link to='/' className={styles.btn}>View<span></span></Link>
             </div>
         </div>
     );
