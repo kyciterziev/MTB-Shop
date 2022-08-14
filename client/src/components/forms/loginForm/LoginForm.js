@@ -72,6 +72,7 @@ const LoginForm = () => {
                             value={values.username}
                             onChange={changeHandler}
                             onBlur={(e) => minLength(e, 3)}
+                            required={true}
                         />
                         {errors.username &&
                             <p className={styles.validationError}>
@@ -86,6 +87,7 @@ const LoginForm = () => {
                             name="password"
                             onChange={changeHandler}
                             onBlur={(e) => minLength(e, 6)}
+                            required={true}
                         />
                         {errors.password &&
                             <p className={styles.validationError}>

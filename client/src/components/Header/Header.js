@@ -9,8 +9,11 @@ import { faUser, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-ico
 
 const Header = () => {
 
-    const { auth, logoutUser } = useContext(AuthContext);
+    const { auth, userLogout } = useContext(AuthContext);
 
+    const logoutHandler = () => {
+        userLogout();
+    }
 
     return (
         <header>
@@ -71,7 +74,7 @@ const Header = () => {
                                 </Link>
                                 :
                                 // Temporary until logut and register functionalities are ready
-                                <Link to='/logout' className="nav-link">
+                                <Link to='/' className="nav-link" onClick={logoutHandler}>
                                     Logout
                                     <FontAwesomeIcon className={styles.userMenuIcon} icon={faArrowRightFromBracket} />
                                 </Link>}
