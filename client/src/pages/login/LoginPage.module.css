@@ -24,6 +24,7 @@
     text-align: center;
     font-size: 15px;
     font-weight: bold;
+    margin-top: 6px;
 }
 
 form{
@@ -73,10 +74,21 @@ form h3{
     font-weight: 300;
 	box-shadow: 0 0 40px rgba(8,7,16,0.6);
 }
-.buttonLogin{
+.buttonLoginOn{
     margin-top: 50px;
     width: 100%;
     background-color: #5e60e4;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.buttonLoginOff{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #c4c4c4;
     color: #080710;
     padding: 15px 0;
     font-size: 18px;

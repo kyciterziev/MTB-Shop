@@ -46,6 +46,13 @@ const LoginPage = () => {
         return <Navigate to="/" />;
     }
 
+
+    let isDisabledLogin = true;
+    const { username, password } = errors;
+    if (!username && !password) {
+        isDisabledLogin = false;
+    }
+
     return (
         <>
             <div className='main'>
@@ -90,7 +97,7 @@ const LoginPage = () => {
                         {errors.isError && errors.errorCode == '' && <div className={styles.validationError}>An error has occured. Please try again later.</div>}
                         {errors.isError && errors.errorMessage != '' && <div className={styles.validationError}>{errors.errorMessage}</div>}
 
-                        <button className={styles.buttonLogin}>Log In</button>
+                        <button disabled={isDisabledLogin} className={isDisabledLogin ? styles.buttonLoginOff : styles.buttonLoginOn}>Log In</button>
                         <div className={styles.containerFormBtn}>
                             <span className={styles.registerText}>Still don't have and account?</span>
                             <Link className={styles.registerLink} to="/register">Register now</Link>
