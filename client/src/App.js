@@ -5,6 +5,7 @@ import HomePage from './pages/home/HomePage';
 import AboutPage from "./pages/about/AboutPage";
 import ContactsPage from "./pages/contacts/ContactsPage";
 import CatalogPage from "./pages/catalog/CatalogPage";
+import LoginPage from "./pages/login/LoginPage";
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact-us" element={<ContactsPage />} />
                         <Route path="/catalog" element={<CatalogPage />} />
+                        <Route path="/login" element={<LoginPage />} />
                     </Route>
                 </Routes>
             </AuthProvider>

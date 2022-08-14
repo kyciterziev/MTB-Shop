@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
+import { useContext } from "react";
+import styles from './Header.module.css';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+
 
 const Header = () => {
+
+    const { auth, logoutUser } = useContext(AuthContext);
+
+
     return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-dark ">
@@ -20,7 +31,7 @@ const Header = () => {
                         <span className="navbar-toggler-icon" />
                     </button>
                     <div
-                        className="collapse navbar-collapse justify-content-end"
+                        className="collapse navbar-collapse justify-content-center"
                         id="navbarsExampleDefault"
                     >
                         <ul className="navbar-nav ">
@@ -50,6 +61,22 @@ const Header = () => {
                             </li>
                         </ul>
                     </div>
+                    <ul className="navbar-nav ">
+                        <li className="nav-item">
+                            {console.log(auth)}
+                            {!auth.accessToken
+                                ? <Link to='/login' className="nav-link">
+                                    Login
+                                    <FontAwesomeIcon className={styles.userMenuIcon} icon={faUser} />
+                                </Link>
+                                :
+                                // Temporary until logut and register functionalities are ready
+                                <Link to='/logout' className="nav-link">
+                                    Logout
+                                    <FontAwesomeIcon className={styles.userMenuIcon} icon={faArrowRightFromBracket} />
+                                </Link>}
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </header>

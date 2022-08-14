@@ -8,21 +8,18 @@ export const AuthProvider = ({ children }) => {
         id: '',
         username: '',
         accessToken: '',
-        errorCode: '',
-        errorMessage: '',
-        isError: false
     });
 
-    const { login, logout } = useAuthApi();
+    const { login, logout, register } = useAuthApi();
 
     const userLogin = (username, password) => login(username, password)
         .then((response) => {
-            if (response === 403) {
-                setAuth({
+            if (response.code === 403) {
+                return {
                     errorCode: 403,
                     errorMessage: response.message,
                     isError: true
-                });
+                };
             } else {
                 setAuth({
                     id: response._id,
@@ -31,9 +28,9 @@ export const AuthProvider = ({ children }) => {
                 });
             }
         }).catch((error) => {
-            setAuth({
+            return {
                 isError: true
-            })
+            }
         });
 
     const userLogout = () => logout(auth.accessToken)
@@ -42,15 +39,12 @@ export const AuthProvider = ({ children }) => {
                 id: '',
                 username: '',
                 accessToken: '',
-                errorCode: '',
-                errorMessage: '',
-                isError: false
             });
         })
         .catch((error) => {
-            setAuth({
+            return {
                 isError: true
-            })
+            }
         });
 
     return (
