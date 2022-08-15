@@ -2,6 +2,7 @@ import styles from './LoginForm.module.css'
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from '../../../contexts/AuthContext';
 import { useState, useContext } from 'react';
+import { minLength } from "../../../utils/validationUtils";
 
 const LoginForm = () => {
     const { auth, userLogin } = useContext(AuthContext);
@@ -19,10 +20,10 @@ const LoginForm = () => {
         }));
     };
 
-    const minLength = (e, bound) => {
+    const validateLength = (e, bound) => {
         setErrors(state => ({
             ...state,
-            [e.target.name]: values[e.target.name].length < bound,
+            [e.target.name]: minLength(e.target.value, bound),
         }));
     }
 
@@ -66,7 +67,7 @@ const LoginForm = () => {
                         name="username"
                         value={values.username}
                         onChange={changeHandler}
-                        onBlur={(e) => minLength(e, 3)}
+                        onBlur={(e) => validateLength(e, 3)}
                         required={true}
                     />
                     {errors.username &&
@@ -81,7 +82,7 @@ const LoginForm = () => {
                         placeholder="Password"
                         name="password"
                         onChange={changeHandler}
-                        onBlur={(e) => minLength(e, 6)}
+                        onBlur={(e) => validateLength(e, 6)}
                         required={true}
                     />
                     {errors.password &&

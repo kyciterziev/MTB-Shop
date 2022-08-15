@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { minLength, isEmail } from "../../../utils/validationUtils";
 
 import styles from './RegisterForm.module.css';
 import AuthContext from "../../../contexts/AuthContext";
@@ -25,18 +26,17 @@ const RegisterForm = () => {
         }));
     };
 
-    const minLength = (e, bound) => {
+    const validateLength = (e, bound) => {
         setErrors(state => ({
             ...state,
-            [e.target.name]: values[e.target.name].length < bound,
+            [e.target.name]: minLength(e.target.value, bound),
         }));
     }
 
-    const emailValidation = (e) => {
-        const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const validateEmail = (e) => {
         setErrors(state => ({
             ...state,
-            [e.target.name]: regex.test(values[e.target.name]) === false,
+            [e.target.name]: isEmail(e.target.value),
         }));
     }
 
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                         placeholder="Email"
                         name="email"
                         onChange={changeHandler}
-                        onBlur={(e) => emailValidation(e)}
+                        onBlur={(e) => validateEmail(e)}
                         required={true}
                     />
                     {errors.email &&
@@ -94,7 +94,7 @@ const RegisterForm = () => {
                         name="username"
                         value={values.username}
                         onChange={changeHandler}
-                        onBlur={(e) => minLength(e, 3)}
+                        onBlur={(e) => validateLength(e, 3)}
                         required={true}
                     />
                     {errors.username &&
@@ -109,7 +109,7 @@ const RegisterForm = () => {
                         placeholder="Password"
                         name="password"
                         onChange={changeHandler}
-                        onBlur={(e) => minLength(e, 6)}
+                        onBlur={(e) => validateLength(e, 6)}
                         required={true}
                     />
                     {errors.password &&

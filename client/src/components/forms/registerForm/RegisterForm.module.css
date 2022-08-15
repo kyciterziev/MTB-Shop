@@ -72,6 +72,11 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.buttonLoginOn:hover{
+    background-color: rgb(114, 165, 243);
+}
+
 .buttonLoginOff{
     margin-top: 50px;
     width: 100%;
