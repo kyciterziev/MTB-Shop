@@ -6,6 +6,7 @@ import AboutPage from "./pages/about/AboutPage";
 import ContactsPage from "./pages/contacts/ContactsPage";
 import CatalogPage from "./pages/catalog/CatalogPage";
 import LoginPage from "./pages/login/LoginPage";
+import RegisterPage from "./pages/register/RegisterPage";
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
                         <Route path="/contact-us" element={<ContactsPage />} />
                         <Route path="/catalog" element={<CatalogPage />} />
                         <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
                     </Route>
                 </Routes>
             </AuthProvider>

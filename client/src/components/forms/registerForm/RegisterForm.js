@@ -1,16 +1,22 @@
-import styles from './LoginForm.module.css'
-import { Link, Navigate } from 'react-router-dom';
-import AuthContext from '../../../contexts/AuthContext';
-import { useState, useContext } from 'react';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
-    const { auth, userLogin } = useContext(AuthContext);
+import styles from './RegisterForm.module.css';
+import AuthContext from "../../../contexts/AuthContext";
+
+const RegisterForm = () => {
 
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         username: "",
-        password: ""
+        password: "",
+        email: ""
     });
+
+    const { userRegister } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const changeHandler = (e) => {
         setValues(state => ({
@@ -26,37 +32,59 @@ const LoginForm = () => {
         }));
     }
 
+    const emailValidation = (e) => {
+        const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        setErrors(state => ({
+            ...state,
+            [e.target.name]: regex.test(values[e.target.name]) === false,
+        }));
+    }
+
     const submitHandler = (e) => {
         e.preventDefault();
-        loginHandler();
+        registerHandler();
     }
 
-    const loginHandler = () => {
-        userLogin(values.username, values.password)
-            .then((result) => {
-                console.log(result);
-                if (result && result.isError) {
-                    setErrors(result);
+    const registerHandler = () => {
+
+        userRegister(values.username, values.password, values.firstName, values.lastName, values.email)
+            .then((res) => {
+                if (res && res.isError) {
+                    setErrors(res);
                 }
-            });
+                else {
+                    navigate("/", { replace: true })
+                }
+            })
     }
-
-    if (auth.accessToken) {
-        return <Navigate to="/" />;
-    }
-
 
     let isDisabledLogin = true;
-    const { username, password } = errors;
-    if (!username && !password) {
+    const { firstName, lastName, username, password } = errors;
+    if (!firstName && !lastName && !username && !password) {
         isDisabledLogin = false;
     }
 
     return (
         <>
             <div className='main-wrapper'>
-                <form onSubmit={submitHandler}>
-                    <h3>Login</h3>
+                <form onSubmit={submitHandler} className={styles.formRegister}>
+                    <h3 className={styles.formHeading}>Register</h3>
+
+                    <label className={styles.labelLogin} htmlFor="email">Email</label>
+                    <input
+                        className={styles.inputLogin}
+                        type="text"
+                        placeholder="Email"
+                        name="email"
+                        onChange={changeHandler}
+                        onBlur={(e) => emailValidation(e)}
+                        required={true}
+                    />
+                    {errors.email &&
+                        <p className={styles.validationError}>
+                            Email is not valid format!
+                        </p>
+                    }
 
                     <label className={styles.labelLogin} htmlFor="username">Username</label>
                     <input
@@ -95,8 +123,8 @@ const LoginForm = () => {
 
                     <button disabled={isDisabledLogin} className={isDisabledLogin ? styles.buttonLoginOff : styles.buttonLoginOn}>Log In</button>
                     <div className={styles.containerFormBtn}>
-                        <span className={styles.registerText}>Still don't have an account?</span>
-                        <Link className={styles.registerLink} to="/register">Register now</Link>
+                        <span className={styles.registerText}>Have an existing account?</span>
+                        <Link className={styles.registerLink} to="/login">Log In</Link>
                     </div>
                 </form>
             </div>
@@ -104,4 +132,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm;
+export default RegisterForm;

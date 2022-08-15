@@ -47,8 +47,31 @@ export const AuthProvider = ({ children }) => {
             }
         });
 
+    const userRegister = (username, password, firstName, lastName, email) =>
+        register(username, password, firstName, lastName, email)
+            .then((data) => {
+                if (data.code === 409) {
+                    return {
+                        errorCode: 409,
+                        errorMessage: data.message,
+                        isError: true
+                    };
+                } else {
+                    setAuth({
+                        id: data._id,
+                        username: data.username,
+                        accessToken: data.accessToken
+                    });
+                }
+            })
+            .catch((error) => {
+                return {
+                    isError: true
+                }
+            });
+
     return (
-        <AuthContext.Provider value={{ auth, userLogin, userLogout }}>
+        <AuthContext.Provider value={{ auth, userLogin, userLogout, userRegister }}>
             {children}
         </AuthContext.Provider>
     );
