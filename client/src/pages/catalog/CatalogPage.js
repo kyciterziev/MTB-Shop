@@ -1,8 +1,10 @@
 import useBikesApi from "../../hooks/useBikesApi";
 import styles from "./CatalogPage.module.css";
-import Title from "../../components/title/Title";
 import BikeCardItem from "../../components/bikeCards/bikeCardItem/BikeCardItem";
 import CatalogPagination from "../../components/catalogPagination/CatalogPagination";
+import LoadingContent from "../../components/loadingContent/LoadingContent";
+import Title from "../../components/title/Title";
+
 import { useState, useEffect } from "react";
 import { useNavigate, createSearchParams, useSearchParams } from 'react-router-dom';
 
@@ -35,22 +37,11 @@ const CatalogPage = () => {
             .finally(() => setIsLoading(false));
 
         countBikeResults(query.query)
-            .then(result => setResultsCount(result))
-
+            .then(result => setResultsCount(result));
     }, [query])
 
     if (isLoading) {
-        return (
-            <div className="main-wrapper">
-                <section className={styles.home}>
-                    <div className={styles.homeContainer}>
-                        <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "30px" }}>
-                            <Title txt="Loading..." size={25} color="#171717" transform="uppercase" />
-                        </div>
-                    </div>
-                </section>
-            </div>
-        );
+        return <LoadingContent />
     }
 
     return (
@@ -65,7 +56,6 @@ const CatalogPage = () => {
                         )}
                     </div>
                     <div className={styles.catalogContainerRow}>
-                        {console.log(bikes)}
                         {bikes ? (
                             bikes.map((product, key) => <BikeCardItem bike={product} key={key} />)
                         ) : (

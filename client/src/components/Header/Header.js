@@ -65,24 +65,31 @@ const Header = () => {
                         </ul>
                     </div>
                     <ul className="navbar-nav ">
-                        <li className="nav-item">
-                            {console.log(auth)}
-                            {!auth.accessToken
-                                ? <Link to='/login' className="nav-link">
-                                    Login
-                                    <FontAwesomeIcon className={styles.userMenuIcon} icon={faUser} />
-                                </Link>
-                                :
-                                // Temporary until logut and register functionalities are ready
-                                <Link to='/' className="nav-link" onClick={logoutHandler}>
-                                    Logout
-                                    <FontAwesomeIcon className={styles.userMenuIcon} icon={faArrowRightFromBracket} />
-                                </Link>}
-                        </li>
+                        {console.log(auth)}
+                        {!auth.accessToken
+                            ? <Link to='/login' className="nav-link">
+                                Login
+                                <FontAwesomeIcon className={styles.userMenuIcon} icon={faUser} />
+                            </Link>
+                            : <>
+                                <li className="nav-item">
+                                    <Link to='/profile' className="nav-link">
+                                        My profile
+                                        <FontAwesomeIcon className={styles.userMenuIcon} icon={faUser} />
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/' className="nav-link" onClick={logoutHandler}>
+                                        Logout
+                                        <FontAwesomeIcon className={styles.userMenuIcon} icon={faArrowRightFromBracket} />
+                                    </Link>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
             </nav>
-        </header>
+        </header >
     );
 }
 

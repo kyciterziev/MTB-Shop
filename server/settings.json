@@ -6,18 +6,52 @@
                 "username": "Admin",
                 "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
                 "firstName":"Admin",
-                "lastName":"Ivanov"
+                "lastName":"Ivanov",
+                "email": "adminadminov@testing.com"
             },
             "847ec027-f659-4086-8032-5173e2f9c93a": {
                 "username": "John",
                 "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
                 "firstName":"John",
-                "lastName":"Ivanov"
+                "lastName":"Ivanov",
+                "email": "johnivanov@testing.com"
             }
         },
         "sessions": {}
     },
     "seedData": {
+        "reviews": {
+            "3a432947-3e43-42a8-bcbc-123d2b199890": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199891",
+                "description": "Mega dobro kolelo",
+                "rating": 4
+            },
+            "3a454947-3e43-42a8-bcbc-123d2b199891": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
+                "description": "loshi chasti i okomplektovka",
+                "rating": 2
+            },
+            "3a432947-3e43-42a8-bcbc-123d2b199892": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199891",
+                "description": "Stava bike-a",
+                "rating": 3
+            },
+            "3a454947-3e43-42a8-bcbc-123d2b199893": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
+                "description": "Otvrat momche nzz",
+                "rating": 1
+            },
+            "3a454947-3e43-42a8-bcbc-123d2b199894": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
+                "description": "TOPEC",
+                "rating": 5
+            }
+        },
         "bikes": {
             "3a432947-3e43-42a8-bcbc-100d2b199890": {
                 "title": "Drag Shift",
@@ -63,11 +97,11 @@
                 ]
             },
             "3a432947-3e43-42a8-bcbc-100d2b199896": {
-                "title": "Drag Freeride",
-                "description": "Hardtail Bike made by bulgarian manufacturer Drag.",
-                "image": "Drag-Shift.jpg",
+                "title": "Specialized Status 160",
+                "description": "Full suspension bike by world class brand Specilized.",
+                "image": "Specialized-Status.jpg",
                 "discount": 0,
-                "price": 1390.00,
+                "price": 6199.99,
                 "status": "delivery",
                 "features": [
                     "Front suspension",

@@ -16,6 +16,7 @@ const BikeCardItem = ({ bike }) => {
                     <img
                         className={styles.cardImage}
                         src={`/images/${bike.image}`}
+                        alt={bike.title}
                     />
                 </figure>
             </div>

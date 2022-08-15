@@ -32,11 +32,13 @@ const useAuthApi = () => {
     const logout = (token) => {
         return fetch(`${baseUrl}/logout`, {
             method: 'GET',
-            headers: getHeaderWithToken({})
+            headers: {
+                'X-Authorization': `${token}`
+            }
         })
     }
 
-    const getUserInfo = (token) => {
+    const getUser = () => {
         return fetch(`${baseUrl}/me`, {
             method: 'GET',
             headers: getHeaderWithToken(
@@ -49,7 +51,7 @@ const useAuthApi = () => {
             .then(response => response.json())
     }
 
-    return { login, register, logout, getUserInfo };
+    return { login, register, logout, getUser };
 }
 
 export default useAuthApi;

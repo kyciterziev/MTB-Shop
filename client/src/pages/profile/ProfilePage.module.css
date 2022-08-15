@@ -1,0 +1,85 @@
+
+.pageWrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 70px;
+}
+
+.accountBox {
+    width: 350px;
+    min-height: 300px;
+    max-height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 55px 55px 37px 55px;
+    background: rgb(215, 228, 240);
+    margin-top: -200px;
+}
+.reviewsBox {
+    width: 500px;
+    min-height: 700px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 55px 55px 37px 55px;
+    background: rgb(215, 228, 240);
+    margin-top: -200px;
+}
+
+.userAvatar {
+    width: 90px;
+    height: 90px;
+}
+
+.boxHeader {
+    color: #15171e;
+    font-size: 20px;
+    border-bottom: 1px solid #15171e;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.accountBoxContent {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.accountBoxHeadings {
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.commentCard {
+    border-radius: 5px;
+    border: 1px solid #15171e;
+    background-color: rgb(253, 245, 245);
+    margin-top: 10px;
+}
+
+.comment {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.commentViewBtn:hover {
+    font-weight: bold;
+    background-color: rgb(197, 211, 211);
+}
+.commentViewBtn {
+    border-radius: 30px;
+    padding-top: 5px;
+    margin-top: 15px;
+
+}
+.emptyReviews {
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
