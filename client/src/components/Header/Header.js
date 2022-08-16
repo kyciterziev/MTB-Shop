@@ -1,19 +1,27 @@
 import { Link } from "react-router-dom";
-import AuthContext from "../../contexts/AuthContext";
-import { useContext } from "react";
-import styles from './Header.module.css';
-
+import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faArrowRightFromBracket, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import AuthContext from "../../contexts/AuthContext";
+import ShoppingCartContext from "../../contexts/ShoppingCartContext";
+import styles from './Header.module.css';
+import ShoppingCart from "../shoppingCart/ShoppingCart";
+
 
 
 const Header = () => {
 
     const { auth, userLogout } = useContext(AuthContext);
+    const { cartItems } = useContext(ShoppingCartContext);
 
     const logoutHandler = () => {
         userLogout();
     }
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <header>
@@ -72,6 +80,17 @@ const Header = () => {
                                 <FontAwesomeIcon className={styles.userMenuIcon} icon={faUser} />
                             </Link>
                             : <>
+                                <li className={styles.shoppingCardIcon}>
+                                    <FontAwesomeIcon
+                                        onClick={() => handleShow()} icon={faShoppingCart}
+                                        className={`${cartItems.length ? styles.shoppingCart : styles.shoppingCartEmpty}`}
+                                    />
+                                    <span
+                                        className={`${cartItems.length ? styles.numberNotifRedCart : styles.numberNotifCart}`}>
+                                        {cartItems.length === 0 ? '' : cartItems.length}
+                                    </span>
+                                </li>
+                                <ShoppingCart show={show} handleClose={handleClose} />
                                 <li className="nav-item">
                                     <Link to='/profile' className="nav-link">
                                         My profile

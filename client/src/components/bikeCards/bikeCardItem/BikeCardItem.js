@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import styles from './BikeCardItem.module.css'
+import ShoppingCartContext from '../../../contexts/ShoppingCartContext';
+import AuthContext from '../../../contexts/AuthContext';
 
 const BikeCardItem = ({ bike }) => {
+
+    const { onAdd } = useContext(ShoppingCartContext);
+    const { auth } = useContext(AuthContext);
 
     return (
         <div className={styles.shopCard}>
@@ -23,6 +29,13 @@ const BikeCardItem = ({ bike }) => {
 
             <div className={styles.cta}>
                 <div className={styles.price}>{bike.price}$</div>
+                {auth.accessToken &&
+                    <button
+                        className={styles.addCartBtn}
+                        onClick={() => onAdd(bike)}
+                    >
+                        Add to Cart
+                    </button>}
                 <Link to='/' className={styles.btn}>View<span></span></Link>
             </div>
         </div>

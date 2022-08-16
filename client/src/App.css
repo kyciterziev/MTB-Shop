@@ -17,6 +17,17 @@ body {
     z-index: 1;
 }
 
+button.add {
+  background-color: #40c0f0;
+  border-radius: 0.5rem;
+  width: 1.5rem;
+}
+button.remove {
+  background-color: #f04040;
+  border-radius: 0.5rem;
+  width: 1.5rem;
+}
+
 .large-wrapper {
     max-width: 1300px;
     margin: 0 auto;
