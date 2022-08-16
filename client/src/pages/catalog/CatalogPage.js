@@ -1,12 +1,11 @@
+import { useState, useEffect } from "react";
+import { useNavigate, createSearchParams, useSearchParams } from 'react-router-dom';
 import useBikesApi from "../../hooks/useBikesApi";
 import styles from "./CatalogPage.module.css";
 import BikeCardItem from "../../components/bikeCards/bikeCardItem/BikeCardItem";
 import CatalogPagination from "../../components/catalogPagination/CatalogPagination";
 import LoadingContent from "../../components/loadingContent/LoadingContent";
 import Title from "../../components/title/Title";
-
-import { useState, useEffect } from "react";
-import { useNavigate, createSearchParams, useSearchParams } from 'react-router-dom';
 
 
 const CatalogPage = () => {
@@ -55,6 +54,23 @@ const CatalogPage = () => {
                             </div>
                         )}
                     </div>
+                    <input
+                        className={styles.catalogSearchInput}
+                        type="search"
+                        name="search"
+                        placeholder="Search shop"
+                        value={query.query}
+                        onChange={e => setQuery((state) => {
+                            return {
+                                ...state,
+                                query: e.target.value,
+                                offset: 0
+                            }
+                        })}
+                    />
+
+
+
                     <div className={styles.catalogContainerRow}>
                         {bikes ? (
                             bikes.map((product, key) => <BikeCardItem bike={product} key={key} />)

@@ -18,10 +18,10 @@ const Header = () => {
         userLogout();
     }
 
-    const [show, setShow] = useState(false);
+    const [showShoppingCart, setShowShoppingCart] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShowShoppingCart(false);
+    const handleShow = () => setShowShoppingCart(true);
 
     return (
         <header>
@@ -90,7 +90,7 @@ const Header = () => {
                                         {cartItems.length === 0 ? '' : cartItems.length}
                                     </span>
                                 </li>
-                                <ShoppingCart show={show} handleClose={handleClose} />
+                                <ShoppingCart show={showShoppingCart} handleClose={handleClose} />
                                 <li className="nav-item">
                                     <Link to='/profile' className="nav-link">
                                         My profile
