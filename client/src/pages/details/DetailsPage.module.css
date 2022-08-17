@@ -128,12 +128,16 @@ outline: none;
 border: 1px solid #7c68e9;
 border-radius: 20px;
 overflow: hidden;
-margin-bottom: 5px;
 margin-left: 5px;
-margin-right: 20px;
 margin-top: 5px;
 }
 .reviewBtn:hover {
     color: rgb(208, 195, 211);
     background-color: #536cda;
+}
+.reviewsIcon {
+    margin-left: 5px;
+}
+.cartIcon {
+    margin-left: 5px;
 }

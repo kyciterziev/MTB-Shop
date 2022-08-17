@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from './BikeCardItem.module.css'
 import ShoppingCartContext from '../../../contexts/ShoppingCartContext';
 import AuthContext from '../../../contexts/AuthContext';
@@ -34,7 +36,8 @@ const BikeCardItem = ({ bike }) => {
                         className={styles.addCartBtn}
                         onClick={() => onAdd(bike)}
                     >
-                        Add to Cart
+                        Add to
+                        <FontAwesomeIcon icon={faCartPlus} className={styles.cartIcon} />
                     </button>}
                 <Link to={`/details/${bike._id}`} className={styles.btn}>View<span></span></Link>
             </div>
