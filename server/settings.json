@@ -50,6 +50,18 @@
                 "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
                 "description": "TOPEC",
                 "rating": 5
+            },
+            "3a454947-3e43-42a8-bcbc-123d2b199895": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
+                "description": "TOPEC",
+                "rating": 5
+            },
+            "3a454947-3e43-42a8-bcbc-123d2b199896": {
+                "_userId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "_bikeId": "3a432947-3e43-42a8-bcbc-100d2b199890",
+                "description": "TOPEC",
+                "rating": 5
             }
         },
         "bikes": {

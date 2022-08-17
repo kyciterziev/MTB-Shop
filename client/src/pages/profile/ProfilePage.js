@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "./ProfilePage.module.css";
 import useAuthApi from "../../hooks/useAuthApi";
@@ -19,8 +19,6 @@ const ProfilePage = () => {
     const { auth } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [userReviews, setUserReviews] = useState([]);
-    // to be used when details page is implemented
-    let navigate = useNavigate();
 
     useEffect(() => {
         getUser()
@@ -72,9 +70,11 @@ const ProfilePage = () => {
                                                     <p className="text-muted pt-5 pt-sm-3">
                                                         <ReviewReviewStatic rating={review.rating} />
                                                     </p>
-                                                    <button className={styles.commentViewBtn} >
-                                                        View
-                                                    </button>
+                                                    <Link to={`/details/${review._bikeId}`} >
+                                                        <button className={styles.commentViewBtn}>
+                                                            View
+                                                        </button>
+                                                    </Link>
                                                 </div>
                                                 <h5 className="text-primary mt-3">{review.description}</h5>
                                             </div>
