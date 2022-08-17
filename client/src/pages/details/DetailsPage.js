@@ -8,6 +8,7 @@ import useBikesApi from '../../hooks/useBikesApi';
 import AuthContext from '../../contexts/AuthContext';
 import ShoppingCartContext from '../../contexts/ShoppingCartContext';
 import Reviews from '../../components/reviews/Reviews';
+import LoadingContent from '../../components/loadingContent/LoadingContent';
 
 const DetailsPage = () => {
 
@@ -18,6 +19,7 @@ const DetailsPage = () => {
     const { getBike } = useBikesApi();
 
     const [showReviews, setShowReviews] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleCloseReviews = () => setShowReviews(false);
     const handleShowReviews = () => setShowReviews(true);
@@ -25,10 +27,14 @@ const DetailsPage = () => {
 
     useEffect(() => {
         getBike(bikeId)
-            .then(data => setBike(data));
+            .then(data => setBike(data))
+            .finally(() => setIsLoading(false));
     }, []);
 
-    console.log(`Bike ${bike.features}`);
+    if (isLoading) {
+        return <LoadingContent />
+    }
+
     return (
         <>
             <div className="main-wrapper">
