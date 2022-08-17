@@ -66,6 +66,10 @@
     margin-left: 5px;
     margin-right: 20px;
   }
+  .btn:hover{
+    background-color: #FF3100;
+    color: rgb(208, 195, 211);
+  }
   .addCartBtn {
     position: relative;
     z-index: 1;
