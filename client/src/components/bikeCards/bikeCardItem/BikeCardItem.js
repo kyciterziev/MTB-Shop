@@ -36,7 +36,7 @@ const BikeCardItem = ({ bike }) => {
                     >
                         Add to Cart
                     </button>}
-                <Link to='/' className={styles.btn}>View<span></span></Link>
+                <Link to={`/details/${bike._id}`} className={styles.btn}>View<span></span></Link>
             </div>
         </div>
     );

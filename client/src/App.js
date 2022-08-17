@@ -10,6 +10,7 @@ import LoginPage from "./pages/login/LoginPage";
 import RegisterPage from "./pages/register/RegisterPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import DetailsPage from "./pages/details/DetailsPage";
 
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
                             <Route path="/about" element={<AboutPage />} />
                             <Route path="/contact-us" element={<ContactsPage />} />
                             <Route path="/catalog" element={<CatalogPage />} />
+                            <Route path="/details/:bikeId" element={<DetailsPage />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/profile" element={<ProtectedRoute>

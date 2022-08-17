@@ -56,11 +56,12 @@
             "3a432947-3e43-42a8-bcbc-100d2b199890": {
                 "title": "Drag Shift",
                 "description": "Hardtail Bike made by bulgarian manufacturer Drag.",
+                "full_description":"SHIFT 5.0 27.5″ is with 27.5″ wheels as the name suggest for those who maneuverability and agility are a priority. The SR Suntour Zeron 35 fork with 150mm travel feels comfortable and is very sturdy to go through any obstacle with ease. The Shimano Deore 1×11 shifters are the best value for money, with the 11-51T cassette giving a huge selection of gears. The WTB STp i29 tubeless ready wheels can be used without inner tubes for more comfort and traction on the forest paths. Shift is DRAG’s new multifunctional, “combat” hardtail. The Shift is available in 3 sizes and has a balanced and versatile character: The front angle is 65.5 °, which makes it great on descents, and the seat tube angle is sufficiently upright to provide effective climbing position.",
                 "image": "Drag-Shift.jpg",
                 "discount": 0,
                 "price": 1390.00,
-                "status": "in-stock"
-                ,
+                "status": "in-stock",
+                "video":"https://www.youtube.com/watch?v=UIcFEfYUXkI",
                 "features": [
                     "Front suspension",
                     "Continental tyres",
@@ -70,11 +71,12 @@
             "3a432947-3e43-42a8-bcbc-100d2b199891": {
                 "title": "Drag Ronin",
                 "description": "Full Suspension Bike made by bulgarian manufacturer Drag.",
+                "full_description":"The 5.0 SLX version comes with the Shimano SLX 12 speed system, as the name suggests. The 12 shifting gears are sufficient enough for both climbing and downhill. The 150mm travel Rockshox 35 Gold fork feels very comfortable while treading whatever is in its way – stones, roots or big jumps. The Rockshox Delux Select + Rear Shock has an option for locking up during climbs and enough travel to smooth out downhill bumps. Thanks to the modern geometry with a lower center of gravity and short saddle tube with a 150mm travel KS Rage-i dropper post, you can choose the size of the bike by its length and not by the height of the seat tube. This guarantees and doubles the enjoyment of MTB riding. The 29” inch wheels with WTB STp i29 tubeless ready tires can be ridden without inner tubes for more comfort and traction on the forest paths.",
                 "image": "Drag-Ronin.jpg",
                 "discount": 0,
                 "price": 3390.00,
-                "status": "in-stock"
-                ,
+                "status": "in-stock",
+                "video":"https://www.youtube.com/watch?v=YxBwSBST6No",
                 "features": [
                     "Front suspension",
                     "Rear suspension",
@@ -85,10 +87,12 @@
             "3a432947-3e43-42a8-bcbc-100d2b199892": {
                 "title": "Canyon Torque",
                 "description": "Full Suspension Bike made by Canyon.",
+                "full_description": "Trail, enduro or downhill, you choose. The Torque 6 is a versatile gravity bike that blurs the boundaries and brings big performance to serious downhill riding. One bike, any style.",
                 "image": "Canyon-Torque.jpg",
                 "discount": 0,
                 "price": 7390.99,
                 "status": "in-stock",
+                "video":"https://www.youtube.com/watch?v=t3zWbBR3zMs",
                 "features": [
                     "Front suspension",
                     "Rear suspension",
