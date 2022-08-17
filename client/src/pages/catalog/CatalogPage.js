@@ -3,7 +3,7 @@ import { useNavigate, createSearchParams, useSearchParams } from 'react-router-d
 import useBikesApi from "../../hooks/useBikesApi";
 import styles from "./CatalogPage.module.css";
 import BikeCardItem from "../../components/bikeCards/bikeCardItem/BikeCardItem";
-import CatalogPagination from "../../components/catalogPagination/CatalogPagination";
+import Pagination from "../../components/pagination/Pagination";
 import LoadingContent from "../../components/loadingContent/LoadingContent";
 import Title from "../../components/title/Title";
 
@@ -83,7 +83,7 @@ const CatalogPage = () => {
                         )}
                     </div>
                     <div>
-                        <CatalogPagination numberOfResults={resultsCount} pageSize={pageSize} handleQuery={setQuery} offset={query.offset} />
+                        <Pagination numberOfResults={resultsCount} pageSize={pageSize} handleQuery={setQuery} offset={query.offset} />
                     </div>
                 </div>
             </div>

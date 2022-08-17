@@ -18,12 +18,17 @@ margin-top: -200px;
 }
 .reviewsBox {
 width: 500px;
-min-height: 700px;
-border-radius: 10px;
-overflow: hidden;
-padding: 55px 55px 37px 55px;
-background: rgb(215, 228, 240);
 margin-top: -200px;
+}
+.cardActionIcon {
+    font-size: 18px;
+    background: transparent;
+    border: none;
+    margin-bottom: 5px;
+    margin-right: 3px;
+}
+.cardActionIcon:hover {
+    color: rgb(65, 149, 218);
 }
 
 .userAvatar {
@@ -50,10 +55,10 @@ font-size: 17px;
 font-weight: bold;
 }
 
-.commentCard {
+.reviewCard {
 border-radius: 5px;
 border: 1px solid #15171e;
-background-color: rgb(253, 245, 245);
+background-color: rgb(255, 255, 255);
 margin-top: 10px;
 }
 
@@ -73,7 +78,6 @@ font-weight: bold;
 background-color: rgb(197, 211, 211);
 }
 .commentViewBtn {
-border-radius: 30px;
 padding-top: 5px;
 margin-top: 15px;
 }

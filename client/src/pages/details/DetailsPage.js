@@ -106,6 +106,9 @@ const DetailsPage = () => {
                         </div>
                     </aside>
                 </div>
+                <div>
+                    testing
+                </div>
             </div>
         </>
     );

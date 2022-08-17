@@ -2,9 +2,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-import styles from './CatalogPagination.module.css';
+import styles from './Pagination.module.css';
 
-const CatalogPagination = ({
+const Pagination = ({
     numberOfResults,
     pageSize,
     handleQuery,
@@ -65,4 +65,4 @@ const CatalogPagination = ({
     );
 }
 
-export default CatalogPagination;
+export default Pagination;

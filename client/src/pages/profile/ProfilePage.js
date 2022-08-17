@@ -1,5 +1,7 @@
 import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams, createSearchParams, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faUserPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./ProfilePage.module.css";
 import useAuthApi from "../../hooks/useAuthApi";
@@ -7,28 +9,48 @@ import useReviewsApi from "../../hooks/useReviewsApi";
 import AuthContext from "../../contexts/AuthContext";
 import ReviewReviewStatic from "../../components/reviewResultStatic/ReviewResultStatic";
 import LoadingContent from "../../components/loadingContent/LoadingContent";
+import Pagination from "../../components/pagination/Pagination";
 
 
 const ProfilePage = () => {
 
-    const numberOfCommentsToShow = 5;
+    const numberOfCommentsToShow = 3;
 
     const { getUser } = useAuthApi();
-    const { getReviewsByUser } = useReviewsApi();
-    const [isLoading, setIsLoading] = useState(true);
+    const { getReviewsByUser, getUserReviewsCount } = useReviewsApi();
+
     const { auth } = useContext(AuthContext);
+
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState({});
     const [userReviews, setUserReviews] = useState([]);
+    const [resultsCount, setResultsCount] = useState(0);
+
+    const [query, setQuery] = useState({
+        offset: searchParams.get('offset') || 0,
+        pageSize: numberOfCommentsToShow,
+    });
 
     useEffect(() => {
+        navigate({
+            pathname: "/profile",
+            search: `?${createSearchParams(query)}`
+        });
+
         getUser()
             .then(data => setUser(data))
             .finally(setIsLoading(false));
 
-        getReviewsByUser(auth.id, numberOfCommentsToShow)
+        getReviewsByUser(auth.id, query.offset, query.pageSize)
             .then(data => setUserReviews(data));
 
-    }, [auth.accessToken, auth.id]);
+        getUserReviewsCount(auth.id)
+            .then(result => setResultsCount(result));
+
+    }, [auth.accessToken, auth.id, query]);
 
     if (isLoading) {
         return <LoadingContent />
@@ -59,24 +81,31 @@ const ProfilePage = () => {
                         </div>
                         <div className={styles.reviewsBox}>
                             <div className={styles.boxHeader}>
-                                Your latest 5 product reviews
+                                Your reviews
                             </div>
                             {userReviews.length
                                 ? userReviews.map((review) => {
                                     return (
-                                        <div key={review._id} className={styles.commentCard}>
+                                        <div key={review._id} className={styles.reviewCard}>
                                             <div className={styles.comment}>
                                                 <div className={styles.commentHeader}>
                                                     <p className="text-muted pt-5 pt-sm-3">
                                                         <ReviewReviewStatic rating={review.rating} />
                                                     </p>
-                                                    <Link to={`/details/${review._bikeId}`} >
-                                                        <button className={styles.commentViewBtn}>
-                                                            View
-                                                        </button>
-                                                    </Link>
                                                 </div>
                                                 <h5 className="text-primary mt-3">{review.description}</h5>
+                                                <p className="text-muted pt-5 pt-sm-3">Author: {review.author.email}</p>
+                                                <Link to={`/details/${review._bikeId}`} >
+                                                    <button className={styles.cardActionIcon}>
+                                                        <FontAwesomeIcon icon={faEye} />
+                                                    </button>
+                                                </Link>
+                                                <button className={styles.cardActionIcon}>
+                                                    <FontAwesomeIcon icon={faUserPen} />
+                                                </button>
+                                                <button className={styles.cardActionIcon}>
+                                                    <FontAwesomeIcon icon={faTrashCan} />
+                                                </button>
                                             </div>
                                         </div>
                                     )
@@ -85,6 +114,7 @@ const ProfilePage = () => {
                                     No recent activities.
                                 </div>
                             }
+                            <Pagination numberOfResults={resultsCount} pageSize={numberOfCommentsToShow} handleQuery={setQuery} offset={query.offset} />
                         </div>
                     </div>
                 </div>
