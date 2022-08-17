@@ -3,7 +3,7 @@ import useTokenInHeader from "./useTokenInHeader";
 const useAuthApi = () => {
 
     const { getHeaderWithToken } = useTokenInHeader();
-    const baseUrl = 'http://localhost:3030/users/';
+    const baseUrl = 'http://localhost:3030/users';
 
     const login = (username, password) => {
         return fetch(`${baseUrl}/login`, {

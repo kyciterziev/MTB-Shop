@@ -14,10 +14,10 @@ import Pagination from "../../components/pagination/Pagination";
 
 const ProfilePage = () => {
 
-    const numberOfCommentsToShow = 3;
+    const numberOfReviewsToShow = 3;
 
     const { getUser } = useAuthApi();
-    const { getReviewsByUser, getUserReviewsCount } = useReviewsApi();
+    const { getReviewsByUser, getUserReviewsCount, deleteReview } = useReviewsApi();
 
     const { auth } = useContext(AuthContext);
 
@@ -31,8 +31,23 @@ const ProfilePage = () => {
 
     const [query, setQuery] = useState({
         offset: searchParams.get('offset') || 0,
-        pageSize: numberOfCommentsToShow,
+        pageSize: numberOfReviewsToShow,
     });
+
+    const handleDelete = (reviewId) => {
+        deleteReview(reviewId)
+            .then((response) => {
+                if (response.status == 200) {
+                    setUserReviews(userReviews.filter((x) => x._id !== reviewId));
+                    setQuery((state) => {
+                        return {
+                            ...state,
+                            offset: query.offset
+                        }
+                    })
+                }
+            })
+    }
 
     useEffect(() => {
         navigate({
@@ -87,14 +102,14 @@ const ProfilePage = () => {
                                 ? userReviews.map((review) => {
                                     return (
                                         <div key={review._id} className={styles.reviewCard}>
-                                            <div className={styles.comment}>
-                                                <div className={styles.commentHeader}>
+                                            <div className={styles.review}>
+                                                <div className={styles.reviewHeader}>
                                                     <p className="text-muted pt-5 pt-sm-3">
                                                         <ReviewReviewStatic rating={review.rating} />
                                                     </p>
                                                 </div>
                                                 <h5 className="text-primary mt-3">{review.description}</h5>
-                                                <p className="text-muted pt-5 pt-sm-3">Author: {review.author.email}</p>
+                                                <p className="text-muted pt-5 pt-sm-3">Review for product: {review.product.title}</p>
                                                 <Link to={`/details/${review._bikeId}`} >
                                                     <button className={styles.cardActionIcon}>
                                                         <FontAwesomeIcon icon={faEye} />
@@ -103,7 +118,7 @@ const ProfilePage = () => {
                                                 <button className={styles.cardActionIcon}>
                                                     <FontAwesomeIcon icon={faUserPen} />
                                                 </button>
-                                                <button className={styles.cardActionIcon}>
+                                                <button className={styles.cardActionIcon} onClick={() => handleDelete(review._id)}>
                                                     <FontAwesomeIcon icon={faTrashCan} />
                                                 </button>
                                             </div>
@@ -114,7 +129,7 @@ const ProfilePage = () => {
                                     No recent activities.
                                 </div>
                             }
-                            <Pagination numberOfResults={resultsCount} pageSize={numberOfCommentsToShow} handleQuery={setQuery} offset={query.offset} />
+                            <Pagination numberOfResults={resultsCount} pageSize={numberOfReviewsToShow} handleQuery={setQuery} offset={query.offset} />
                         </div>
                     </div>
                 </div>

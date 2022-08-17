@@ -62,24 +62,15 @@ background-color: rgb(255, 255, 255);
 margin-top: 10px;
 }
 
-.comment {
+.review {
 text-align: left;
 margin-left: 10px;
 }
 
-.commentHeader {
+.reviewHeader {
 display: flex;
 justify-content: space-between;
 margin-right: 10px;
-}
-
-.commentViewBtn:hover {
-font-weight: bold;
-background-color: rgb(197, 211, 211);
-}
-.commentViewBtn {
-padding-top: 5px;
-margin-top: 15px;
 }
 .emptyReviews {
 font-size: 20px;
