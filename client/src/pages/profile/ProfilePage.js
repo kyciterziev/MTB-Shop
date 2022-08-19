@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link, useSearchParams, createSearchParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faUserPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { isEmptyReview } from "../../utils/validationUtils";
 
 import styles from "./ProfilePage.module.css";
 import useAuthApi from "../../hooks/useAuthApi";
@@ -10,6 +11,9 @@ import AuthContext from "../../contexts/AuthContext";
 import ReviewRatingStatic from "../../components/reviewRatingStatic/ReviewRatingStatic";
 import LoadingContent from "../../components/loadingContent/LoadingContent";
 import Pagination from "../../components/pagination/Pagination";
+import ReviewRatingDynamic from "../../components/reviewRatingDynamic/ReviewRatingDynamic";
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 
 const ProfilePage = () => {
@@ -17,7 +21,7 @@ const ProfilePage = () => {
     const numberOfReviewsToShow = 3;
 
     const { getUser } = useAuthApi();
-    const { getReviewsByUser, getUserReviewsCount, deleteReview } = useReviewsApi();
+    const { getReviewsByUser, getUserReviewsCount, editReview, deleteReview } = useReviewsApi();
 
     const { auth } = useContext(AuthContext);
 
@@ -28,11 +32,70 @@ const ProfilePage = () => {
     const [user, setUser] = useState({});
     const [userReviews, setUserReviews] = useState([]);
     const [resultsCount, setResultsCount] = useState(0);
+    const [showEditReviewModal, setShowEditReviewModal] = useState(false);
+    const [editReviewValidation, setEditReviewValidation] = useState({});
+
+    const handleCloseReviewModal = () => setShowEditReviewModal(false);
+    const handleShowReviewModal = () => setShowEditReviewModal(true);
+
+    const [editModal, setEditModal] = useState({
+        description: "",
+        rating: 0,
+        _bikeId: 0,
+        _id: 0
+    });
+
 
     const [query, setQuery] = useState({
         offset: searchParams.get('offset') || 0,
         pageSize: numberOfReviewsToShow,
     });
+
+    const handleEditReviewChange = (e) => {
+        const value = e.target.value;
+        setEditModal({
+            ...editModal,
+            [e.target.name]: value
+        });
+    }
+
+    function openReviewEditModal(review) {
+        setEditModal({
+            description: review.description,
+            rating: review.rating,
+            _bikeId: review._bikeId,
+            _id: review._id
+        });
+    }
+
+    const submitEditHandler = (e) => {
+        e.preventDefault();
+        setEditReviewValidation({});
+
+
+        if (isEmptyReview(editModal)) {
+            return setEditReviewValidation({ description: "Cannot submit empty review. Please enter a valid review." });
+        }
+
+        editReview(editModal)
+            .then((response) => {
+                if (response.status == 200) {
+                    getReviewsByUser(auth.id, query.offset, query.pageSize)
+                        .then(data => setUserReviews(data));
+
+                    alert("You have successfully edited your review.")
+                }
+            })
+
+        setEditModal({
+            description: "",
+            rating: 0,
+            _bikeId: 0,
+            _id: 0
+        });
+
+        handleCloseReviewModal();
+    }
 
     const handleDelete = (reviewId) => {
         deleteReview(reviewId)
@@ -115,7 +178,12 @@ const ProfilePage = () => {
                                                         <FontAwesomeIcon icon={faEye} />
                                                     </button>
                                                 </Link>
-                                                <button className={styles.cardActionIcon}>
+                                                <button
+                                                    className={styles.cardActionIcon}
+                                                    onClick={() => {
+                                                        handleShowReviewModal();
+                                                        openReviewEditModal(review);
+                                                    }}>
                                                     <FontAwesomeIcon icon={faUserPen} />
                                                 </button>
                                                 <button className={styles.cardActionIcon} onClick={() => handleDelete(review._id)}>
@@ -134,6 +202,28 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
+            <Modal show={showEditReviewModal} onHide={handleCloseReviewModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit your review</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={(e) => submitEditHandler(e)}>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <ReviewRatingDynamic review={editModal} setReview={setEditModal} />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlTextarea1"
+                        >
+                            <Form.Control as="textarea" rows={3} value={editModal.description} onChange={handleEditReviewChange} name="description" />
+                        </Form.Group>
+                        {editReviewValidation.description &&
+                            <div className="inputReviewError">{editReviewValidation.description}</div>
+                        }
+                        <input type="submit" value="Submit" />
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </>
     );
 }
