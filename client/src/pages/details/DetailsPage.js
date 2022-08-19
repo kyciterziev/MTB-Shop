@@ -10,6 +10,7 @@ import AuthContext from '../../contexts/AuthContext';
 import ShoppingCartContext from '../../contexts/ShoppingCartContext';
 import ReviewsModal from '../../components/reviewsModal/ReviewsModal';
 import LoadingContent from '../../components/loadingContent/LoadingContent';
+import ReviewRatingDynamic from '../../components/reviewRatingDynamic/ReviewRatingDynamic';
 
 const DetailsPage = () => {
 
@@ -17,12 +18,18 @@ const DetailsPage = () => {
     const { auth } = useContext(AuthContext);
     const { onAdd } = useContext(ShoppingCartContext);
     const { getBike } = useBikesApi();
-    const { getBikeReviews } = useReviewsApi();
+    const { getBikeReviews, createReview } = useReviewsApi();
 
     const [bike, setBike] = useState({});
     const [reviews, setReviews] = useState([]);
     const [showReviews, setShowReviews] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [reviewValidation, setReviewValidation] = useState({});
+    const [newReview, setNewReview] = useState({
+        _bikeId: bikeId,
+        description: "",
+        rating: 0
+    });
 
     const handleCloseReviews = () => setShowReviews(false);
     const handleShowReviews = () => setShowReviews(true);
@@ -36,6 +43,38 @@ const DetailsPage = () => {
         getBikeReviews(bikeId)
             .then(data => setReviews(data));
     }, []);
+
+    const handleReviewChange = (e) => {
+        const newReviewText = e.target.value;
+        setNewReview({
+            ...newReview,
+            description: newReviewText
+        });
+    }
+
+    const submitReviewHandler = (e) => {
+        e.preventDefault();
+
+        if (newReview.description == "") {
+            return setReviewValidation({ description: "Cannot submit empty review. Please enter a valid review." });
+        }
+
+        createReview(newReview)
+            .then((response) => {
+                if (response.status == 200) {
+                    getBikeReviews(bikeId)
+                        .then(data => {
+                            setReviews(data);
+                        });
+                }
+            })
+
+        setNewReview({
+            _bikeId: bikeId,
+            description: "",
+            rating: 0
+        });
+    }
 
     if (isLoading) {
         return <LoadingContent />
@@ -113,7 +152,21 @@ const DetailsPage = () => {
                     </aside>
                 </div>
                 <div>
-                    testing
+                    <form onSubmit={submitReviewHandler} className={styles.reviewWrapper}>
+                        <label htmlFor="comment" className={styles.reviewTitle}>Rate & Review</label>
+                        <ReviewRatingDynamic newReview={newReview} setNewReview={setNewReview} />
+
+                        <div>
+                            <textarea type="text" id="comment" className={styles.inputReview} value={newReview.description}
+                                onChange={handleReviewChange} rows="5" cols="50" />
+                        </div>
+                        {reviewValidation.description &&
+                            <div className={styles.inputReviewValMsg}>{reviewValidation.description}</div>
+                        }
+                        <button type="submit" className={styles.submitReview}>
+                            Submit
+                        </button>
+                    </form>
                 </div>
             </div>
         </>

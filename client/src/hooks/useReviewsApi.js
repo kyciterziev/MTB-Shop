@@ -20,6 +20,18 @@ const useReviewsApi = () => {
             .then(response => response.json())
     }
 
+    const createReview = (newReview) => {
+
+        return fetch('http://localhost:3030/data/reviews', {
+            method: 'POST',
+            headers: getHeaderWithToken({
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(newReview),
+        })
+    }
+
     const deleteReview = (reviewId) => {
         return fetch(`http://localhost:3030/data/reviews/${reviewId}`, {
             method: 'DELETE',
@@ -30,7 +42,7 @@ const useReviewsApi = () => {
         })
     }
 
-    return { getReviewsByUser, getBikeReviews, getUserReviewsCount, deleteReview };
+    return { getReviewsByUser, getBikeReviews, getUserReviewsCount, createReview, deleteReview };
 }
 
 export default useReviewsApi;
