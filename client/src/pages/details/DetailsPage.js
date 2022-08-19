@@ -66,6 +66,7 @@ const DetailsPage = () => {
                         .then(data => {
                             setReviews(data);
                         });
+                    alert("You have successfully added new review.");
                 }
             })
 
@@ -151,23 +152,25 @@ const DetailsPage = () => {
                         </div>
                     </aside>
                 </div>
-                <div>
-                    <form onSubmit={submitReviewHandler} className={styles.reviewWrapper}>
-                        <label htmlFor="comment" className={styles.reviewTitle}>Rate & Review</label>
-                        <ReviewRatingDynamic newReview={newReview} setNewReview={setNewReview} />
+                {auth.accessToken &&
+                    <div>
+                        <form onSubmit={submitReviewHandler} className={styles.reviewWrapper}>
+                            <label htmlFor="comment" className={styles.reviewTitle}>Rate & Review</label>
+                            <ReviewRatingDynamic review={newReview} setReview={setNewReview} />
 
-                        <div>
-                            <textarea type="text" id="comment" className={styles.inputReview} value={newReview.description}
-                                onChange={handleReviewChange} rows="5" cols="50" />
-                        </div>
-                        {reviewValidation.description &&
-                            <div className={styles.inputReviewValMsg}>{reviewValidation.description}</div>
-                        }
-                        <button type="submit" className={styles.submitReview}>
-                            Submit
-                        </button>
-                    </form>
-                </div>
+                            <div>
+                                <textarea type="text" id="comment" className={styles.inputReview} value={newReview.description}
+                                    onChange={handleReviewChange} rows="5" cols="50" />
+                            </div>
+                            {reviewValidation.description &&
+                                <div className={styles.inputReviewValMsg}>{reviewValidation.description}</div>
+                            }
+                            <button type="submit" className={styles.submitReview}>
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                }
             </div>
         </>
     );

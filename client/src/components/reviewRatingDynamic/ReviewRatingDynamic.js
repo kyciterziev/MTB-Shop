@@ -6,7 +6,7 @@ import { useState } from "react";
 const ReviewRatingDynamic = (props) => {
 
     const [hover, setHover] = useState(0);
-    const { newReview, setNewReview } = props;
+    const { review, setReview } = props;
 
     return (
         <div className={styles.ratingFaces}>
@@ -18,15 +18,15 @@ const ReviewRatingDynamic = (props) => {
                         <button
                             type="button"
                             key={index}
-                            className={index <= (hover || newReview.rating) ? `${styles.angryFace}` : `${styles.angryFaceOff}`}
-                            onClick={() => setNewReview((state) => {
+                            className={index <= (hover || review.rating) ? `${styles.angryFace}` : `${styles.angryFaceOff}`}
+                            onClick={() => setReview((state) => {
                                 return ({
                                     ...state,
                                     rating: index
                                 })
                             })}
                             onMouseEnter={() => setHover(index)}
-                            onMouseLeave={() => setHover(newReview.rating)}
+                            onMouseLeave={() => setHover(review.rating)}
                         >
                             <FontAwesomeIcon icon={faAngry} className={styles.ratingFaces} />
                         </button>
@@ -40,15 +40,15 @@ const ReviewRatingDynamic = (props) => {
                     <button
                         type="button"
                         key={index}
-                        className={index <= (hover || newReview.rating) ? `${styles.smileFace}` : `${styles.smileFaceOff}`}
-                        onClick={() => setNewReview((state) => {
+                        className={index <= (hover || review.rating) ? `${styles.smileFace}` : `${styles.smileFaceOff}`}
+                        onClick={() => setReview((state) => {
                             return ({
                                 ...state,
                                 rating: index
                             })
                         })}
                         onMouseEnter={() => setHover(index)}
-                        onMouseLeave={() => setHover(newReview.rating)}
+                        onMouseLeave={() => setHover(review.rating)}
                     >
                         <FontAwesomeIcon icon={faSmile} className={styles.ratingFaces} />
                     </button>

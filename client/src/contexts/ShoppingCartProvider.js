@@ -12,8 +12,11 @@ export const ShoppingCartProvider = ({ children }) => {
                     x._id === product._id ? { ...exist, qty: exist.qty + 1 } : x
                 )
             );
+            alert("Already added. You have increased the quantity by 1.");
         } else {
             setCartItems([...cartItems, { ...product, qty: 1 }]);
+            alert("Product is added in cart.");
+
         }
     };
     const onRemove = (product) => {
