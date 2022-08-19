@@ -9,8 +9,8 @@ const useReviewsApi = () => {
             .then(response => response.json())
     }
 
-    const getReviews = (bikeId) => {
-        return fetch(`http://localhost:3030/data/reviews?where=_bikeId%3D%22${bikeId}%22&load=author%3D_ownerId%3Ausers%26&load=bike%3D_bikeId%3Abikes,author%3D_ownerId%3Ausers`)
+    const getBikeReviews = (bikeId) => {
+        return fetch(`http://localhost:3030/data/reviews?where=_bikeId%3D%22${bikeId}%22&load=author%3D_ownerId%3Ausers`)
             .then(response => response.json())
     }
 
@@ -30,7 +30,7 @@ const useReviewsApi = () => {
         })
     }
 
-    return { getReviewsByUser, getReviews, getUserReviewsCount, deleteReview };
+    return { getReviewsByUser, getBikeReviews, getUserReviewsCount, deleteReview };
 }
 
 export default useReviewsApi;

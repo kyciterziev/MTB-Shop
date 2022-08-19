@@ -7,7 +7,7 @@ import styles from "./ProfilePage.module.css";
 import useAuthApi from "../../hooks/useAuthApi";
 import useReviewsApi from "../../hooks/useReviewsApi";
 import AuthContext from "../../contexts/AuthContext";
-import ReviewReviewStatic from "../../components/reviewResultStatic/ReviewResultStatic";
+import ReviewResultStatic from "../../components/reviewResultStatic/ReviewResultStatic";
 import LoadingContent from "../../components/loadingContent/LoadingContent";
 import Pagination from "../../components/pagination/Pagination";
 
@@ -105,7 +105,7 @@ const ProfilePage = () => {
                                             <div className={styles.review}>
                                                 <div className={styles.reviewHeader}>
                                                     <p className="text-muted pt-5 pt-sm-3">
-                                                        <ReviewReviewStatic rating={review.rating} />
+                                                        <ReviewResultStatic rating={review.rating} />
                                                     </p>
                                                 </div>
                                                 <h5 className="text-primary mt-3">{review.description}</h5>

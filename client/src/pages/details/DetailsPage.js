@@ -5,19 +5,22 @@ import { faComments, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player/youtube";
 import styles from "../details/DetailsPage.module.css";
 import useBikesApi from '../../hooks/useBikesApi';
+import useReviewsApi from '../../hooks/useReviewsApi';
 import AuthContext from '../../contexts/AuthContext';
 import ShoppingCartContext from '../../contexts/ShoppingCartContext';
-import Reviews from '../../components/reviews/Reviews';
+import ReviewsModal from '../../components/reviewsModal/ReviewsModal';
 import LoadingContent from '../../components/loadingContent/LoadingContent';
 
 const DetailsPage = () => {
 
     const { bikeId } = useParams();
-    const [bike, setBike] = useState({});
     const { auth } = useContext(AuthContext);
     const { onAdd } = useContext(ShoppingCartContext);
     const { getBike } = useBikesApi();
+    const { getBikeReviews } = useReviewsApi();
 
+    const [bike, setBike] = useState({});
+    const [reviews, setReviews] = useState([]);
     const [showReviews, setShowReviews] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -29,6 +32,9 @@ const DetailsPage = () => {
         getBike(bikeId)
             .then(data => setBike(data))
             .finally(() => setIsLoading(false));
+
+        getBikeReviews(bikeId)
+            .then(data => setReviews(data));
     }, []);
 
     if (isLoading) {
@@ -76,7 +82,7 @@ const DetailsPage = () => {
                                 View User reviews
                                 <FontAwesomeIcon icon={faComments} className={styles.reviewsIcon} />
                             </button>
-                            <Reviews show={showReviews} handleClose={handleCloseReviews} />
+                            <ReviewsModal show={showReviews} reviews={reviews} handleClose={handleCloseReviews} />
                             <br />
                             <div className={styles.bikeDescription}>
                                 <h4>
