@@ -2,6 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ShoppingCartContext from '../../contexts/ShoppingCartContext';
 import { useContext } from "react";
+import styles from './ShoppingCart.module.css';
 
 const ShoppingCart = (props) => {
 
@@ -22,25 +23,22 @@ const ShoppingCart = (props) => {
                 <Modal.Body >
                     {cartItems.length === 0 && <div>Cart is empty</div>}
                     {cartItems.map((item) => (
-                        <>
-                            <div key={item._id} className="row">
-                                <div className="col-2">{item.title}</div>
+                        <div key={item._id} className="row">
+                            <div className="col-2">{item.title}</div>
 
-                                <div className="col-2">
-                                    <button onClick={() => onRemove(item)} className="remove">
-                                        -
-                                    </button>{' '}
-                                    <button onClick={() => onAdd(item)} className="add">
-                                        +
-                                    </button>
-                                </div>
-
-                                <div className="col-2 text-right">
-                                    {item.qty} x ${item.price.toFixed(2)}
-                                </div>
+                            <div className="col-2">
+                                <button onClick={() => onRemove(item)} className={styles.remove}>
+                                    -
+                                </button>{' '}
+                                <button onClick={() => onAdd(item)} className={styles.add}>
+                                    +
+                                </button>
                             </div>
-                            <br />
-                        </>
+
+                            <div className="col-2 text-right">
+                                {item.qty} x ${item.price.toFixed(2)}
+                            </div>
+                        </div>
                     ))}
 
                     {cartItems.length !== 0 && (
