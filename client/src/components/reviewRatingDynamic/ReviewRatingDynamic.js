@@ -13,7 +13,7 @@ const ReviewRatingDynamic = (props) => {
             {
                 [...Array(2)].map((star, index) => {
                     index += 1;
-                    console.log(hover);
+
                     return (
                         <button
                             type="button"
@@ -35,7 +35,7 @@ const ReviewRatingDynamic = (props) => {
             }
             {[...Array(3)].map((star, index) => {
                 index += 3;
-                console.log(hover);
+
                 return (
                     <button
                         type="button"
