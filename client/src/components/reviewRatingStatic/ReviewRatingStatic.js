@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faAngry } from "@fortawesome/free-regular-svg-icons";
-import styles from "./ReviewResultStatic.module.css";
+import styles from "./ReviewRatingStatic.module.css";
 
 
-const ReviewResultStatic = ({ rating }) => {
+const ReviewRatingStatic = ({ rating }) => {
     var reviewFaces = [];
     let isPositiveReview = false;
     if (rating >= 3) {
@@ -17,4 +17,4 @@ const ReviewResultStatic = ({ rating }) => {
     return reviewFaces;
 }
 
-export default ReviewResultStatic;
+export default ReviewRatingStatic;

@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import styles from './ReviewsModal.module.css';
-import ReviewResultStatic from '../reviewResultStatic/ReviewResultStatic';
+import ReviewRatingStatic from '../reviewRatingStatic/ReviewRatingStatic';
 
 const ReviewsModal = (props) => {
 
@@ -26,7 +26,7 @@ const ReviewsModal = (props) => {
                                     <div className={styles.review}>
                                         <div className={styles.reviewHeader}>
                                             <p className="text-muted pt-5 pt-sm-3">
-                                                <ReviewResultStatic rating={review.rating} />
+                                                <ReviewRatingStatic rating={review.rating} />
                                             </p>
                                         </div>
                                         <h5 className="text-primary mt-3">{review.description}</h5>
