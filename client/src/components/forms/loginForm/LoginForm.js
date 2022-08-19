@@ -56,7 +56,7 @@ const LoginForm = () => {
     return (
         <>
             <div className='main-wrapper'>
-                <form onSubmit={submitHandler}>
+                <form className={styles.formLogin} onSubmit={submitHandler}>
                     <h3>Login</h3>
 
                     <label className={styles.labelLogin} htmlFor="username">Username</label>

@@ -27,7 +27,7 @@
     margin-top: 6px;
 }
 
-form{
+.formLogin{
     height: 520px;
     width: 400px;
     background-color: rgba(126, 126, 126, 0.13);
@@ -41,13 +41,13 @@ form{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
 }
-form *{
+.formLogin *{
     font-family: 'Poppins',sans-serif;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h3{
+.formLogin h3{
     font-size: 32px;
     font-weight: 500;
     line-height: 10px;
