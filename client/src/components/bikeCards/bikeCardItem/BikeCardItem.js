@@ -30,7 +30,7 @@ const BikeCardItem = ({ bike }) => {
             </div>
 
             <div className={styles.cta}>
-                <div className={styles.price}>{bike.price}$</div>
+                <div className={styles.price}>{bike.price.toFixed(2)}$</div>
                 {auth.accessToken &&
                     <button
                         className={styles.addCartBtn}

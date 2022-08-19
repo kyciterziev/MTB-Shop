@@ -135,7 +135,7 @@ const DetailsPage = () => {
                     </div>
                     <aside className={styles.bikeBoxRight}>
                         <img className={styles.bikeImage} src={`/images/${bike.image}`} />
-                        <div className={styles.bikePrice}>Price: {bike.price}€
+                        <div className={styles.bikePrice}>Price: {bike.price.toFixed(2)}€
                             {auth.accessToken &&
                                 <button
                                     className={styles.addCartBtn}
@@ -163,7 +163,7 @@ const DetailsPage = () => {
                                     onChange={handleReviewChange} rows="5" cols="50" />
                             </div>
                             {reviewValidation.description &&
-                                <div className={styles.inputReviewValMsg}>{reviewValidation.description}</div>
+                                <div className="inputReviewError">{reviewValidation.description}</div>
                             }
                             <button type="submit" className={styles.submitReview}>
                                 Submit
