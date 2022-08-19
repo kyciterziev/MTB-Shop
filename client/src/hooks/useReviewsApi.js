@@ -32,6 +32,21 @@ const useReviewsApi = () => {
         })
     }
 
+    const editReview = (review) => {
+        return fetch(`http://localhost:3030/data/reviews/${review._id}`, {
+            method: 'PUT',
+            headers: getHeaderWithToken({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({
+                _bikeId: review._bikeId,
+                description: review.description,
+                rating: review.rating
+            })
+        })
+    }
+
     const deleteReview = (reviewId) => {
         return fetch(`http://localhost:3030/data/reviews/${reviewId}`, {
             method: 'DELETE',
@@ -42,7 +57,7 @@ const useReviewsApi = () => {
         })
     }
 
-    return { getReviewsByUser, getBikeReviews, getUserReviewsCount, createReview, deleteReview };
+    return { getReviewsByUser, getBikeReviews, getUserReviewsCount, createReview, editReview, deleteReview };
 }
 
 export default useReviewsApi;
